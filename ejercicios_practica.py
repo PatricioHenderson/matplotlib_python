@@ -12,8 +12,8 @@ adquiridos durante la clase
 '''
 
 __author__ = "Inove Coding School"
-__email__ = "alumnos@inove.com.ar"
-__version__ = "1.1"
+__email__ = "patriciohenderson@hotmail.com"
+__version__ = "1.2"
 
 import math
 import numpy as np
@@ -30,7 +30,7 @@ def ej1():
     # Función que se desea graficar:
     # y1 = x**2
 
-    x = list(range(-10, 11, 1))
+    x = range(-10, 11, 1)
     # Estamos aprovechando el concepto de comprension de listas
     # para generar los valores que toma "Y" por cada valor de "X"
     y = [i**2 for i in x]
@@ -39,8 +39,19 @@ def ej1():
     # Graficar el "line plot" de "Y" en función de "X"
     # Colocar la leyenda y el label con el nombre de la función
     # Darle color a la línea a su elección
+    fig = plt.figure()
+    fig.suptitle('Ejercicio 1 - Elijiendo colores feos', fontsize=14)
+    ax = fig.add_subplot()
 
-
+    ax.plot(x, y, c='white', marker='.', ms=5, label='y=x**2')
+    
+    ax.legend( )
+    ax.grid()
+    custom_ticks = np.linspace(-10,10 , 21, dtype=int)
+    ax.set_xticks(x)
+    ax.set_facecolor('black')
+    plt.show()
+    
 def ej2():
     # Line Plot
     # Se desea graficar varias funciones en un mismmo gráfico (axe)
@@ -64,6 +75,19 @@ def ej2():
 
     # Cada función dibujarla con un color distinto
     # a su elección
+    fig = plt.figure()
+    fig.suptitle("Ejercicio 2 ", fontsize=22 )
+    ax = fig.add_subplot()
+
+    ax.plot(x, y1 , color="orange", marker= '.' , ms=10, label='y = x**2')
+    ax.plot(x, y2 , color="red", marker='1', ms=10, label='y = x**3')
+
+    ax.legend()
+    ax.grid()
+    custom_ticks = np.linspace(-4 , 4, 9, dtype=int)
+    ax.set_xticks = (custom_ticks)
+    ax.set_facecolor("white")
+    plt.show()
 
 
 def ej3():
@@ -71,6 +95,7 @@ def ej3():
     # Se desea graficar la función tanh para el siguiente
     # intervalor de valores de "X"
     x = np.arange(-np.pi, np.pi, 0.1)
+    
 
     # Función a implementar
     # y = tanh(x) --> tangente hiperbólica
@@ -79,7 +104,13 @@ def ej3():
     y = np.tanh(x)
 
     # Graficar la función utilizando "scatter"
+    fig = plt.figure()
+    fig.suptitle("Ejercicio 3", fontsize=22)
+    ax = fig.add_subplot()
 
+    ax.scatter(x, y , color="orange",  label='y = np.tanh(x)')
+    ax.legend()
+    plt.show()
     # Se debe colocar en la leyenda la función que representa
     # cada gráfico
 
@@ -122,12 +153,42 @@ def ej4():
     # a su elección
 
     # Colocar una grilla a elección
+    fig = plt.figure()
 
+    fig.suptitle("Ejercicio 4" , fontsize=22)
+    ax1 = fig.add_subplot(3 ,3 ,1)
+    ax1.plot(x,y1,color='r', label='y1 = x^2')
+    ax1.set_facecolor('whitesmoke')
+    ax1.legend()
+    
+    ax2= fig.add_subplot(3,3,3)
+    ax2.plot(x,y2,color='green', label='y2 = x^3')
+    ax2.legend()
+
+    ax3 = fig.add_subplot(3,3,7)
+    ax3.plot(x,y3, color='blue', label='y2 = x^4')
+    ax3.legend()
+
+    ax4 = fig.add_subplot(3,3,9)
+    ax4.plot(x,y4, color="yellow", label='y4 = raiz_cuadrada(X)')
+    ax4.legend()
+    plt.show()
+
+    fig=plt.figure()
+    fig.suptitle("ejercicio 4 - bis")
+    ax5 = fig.add_subplot()
+    ax5.scatter(x,y1, color='r',label='y1 = x^2')
+    ax5.scatter(x,y2, color='green',label='y1 = x^3')
+    ax5.scatter(x,y3, color='blue',label='y1 = x^4')
+    ax5.scatter(x,y4, color='yellow',label='y4 = raiz_cuadrada(X)')
+    ax5.legend()
+    ax5.set_facecolor('whitesmoke')
+    
+    plt.show()
 
 if __name__ == '__main__':
     print("Bienvenidos a otra clase de Inove con Python")
-    ej1()
-    # ej2()
-    # ej2()
-    # ej3()
-    # ej4()
+    #ej1()
+    #ej2()
+    #ej3()
+    #ej4()

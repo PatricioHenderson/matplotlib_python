@@ -15,6 +15,11 @@ __author__ = "Inove Coding School"
 __email__ = "alumnos@inove.com.ar"
 __version__ = "1.2"
 
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.axes
+import matplotlib.gridspec as gridspec
+import mplcursors 
 
 '''
 NOTA PARA TODOS LOS EJERCICIOS
@@ -60,7 +65,7 @@ def ej1():
     1) Para aquellos que utilicen listas siempre primero deberan
     emprezar filtrando el dataset en una lista de diccionarios que
     posee solo las filas y columnas que a están buscando.
-    En este caso todas las filas cuyo mes = 1 y solo la columan
+    En este caso todas las filas cuyo mes = 1 y solo la columna
     de día(x) y de alimentos(y).
     Una vez que tiene esa lista de dccionarios reducida a la información
     de interés, debe volver a utilizar comprensión de listas para separar
@@ -93,8 +98,26 @@ def ej1():
     y = mes_1[:, 2]
 
     '''
-
-
+    
+    data = np.genfromtxt('ventas.csv', delimiter=',')
+    # Borro la fila 0 del header, los nombres de las columnas
+    data = data[1:,:]
+    dias = data[:, 1]
+    filas_mes_1 = data[:, 0] == 1
+    mes_1 = data[filas_mes_1, :]
+    x = mes_1[:, 1]
+    y = mes_1[:, 2]
+    
+    fig = plt.figure()
+    fig.suptitle("Ejercicio extra N° 1" , fontsize = 22)
+    ax = fig.add_subplot()
+    ax.plot(x,y , label ="Evolución de las ventas")
+    ax.legend()
+    ax.set_ylabel("Total de ventas")
+    ax.set_xlabel("Días del mes 1")
+    mplcursors.cursor()
+    plt.show()
+    
 def ej2():
     print('Comenzamos a ponernos serios!')
 
@@ -121,7 +144,22 @@ def ej2():
     plot(tendencia)
 
     '''
+    data = np.genfromtxt('ventas.csv', delimiter=',')
+    data = data[1:,:]
+    alimentos = data[:, 3]
+    data_dias = data[1:,:]
+    dias = data_dias[:, 1]
+    
+    tendencia = np.diff(alimentos)
 
+    fig = plt.figure()
+    fig.suptitle("Ejecicio extra N° 2")
+    ax = fig.add_subplot()
+
+    ax.plot(tendencia,x, label ="Diferencia ventas vs día anterior")
+    ax.legend()
+    plt.show()
+    print(dias)
 
 def ej3():
     print("Buscando la tendencia")
@@ -137,8 +175,21 @@ def ej3():
     ventas de electrodomésticos.
 
     '''
+    data = np.genfromtxt('ventas.csv', delimiter=',')
+    data = data[1:,:]
+    electrodomesticos = data[:, 5]
+    print(electrodomesticos)
+    
+    electrodomesticos = [ 0 if x == 0 else 1 for x in electrodomesticos  ]
+    
+    fig = plt.figure()
+    fig.suptitle("Ejercicio extra N° 3")
 
-
+    ax = fig.add_subplot()
+    ax.plot(electrodomesticos , label="días con venta electrodomesticos")
+    ax.legend()
+    plt.show()
+    
 def ej4():
     print("Exprimiendo los datos")
 
@@ -159,6 +210,23 @@ def ej4():
     para visualizar que categoría facturó más en lo que va
     del año
     '''
+    data = np.genfromtxt('ventas.csv' , delimiter=',')
+    data = data[1:,:]
+    total_alimentos = np.sum(data[:,2])
+    total_bazar = np.sum(data[:,3])
+    total_limpieza = np.sum(data[:,4])
+    total_electrodomesticos = np.sum(data[:,5])
+    totales = [total_alimentos , total_bazar , total_limpieza, total_electrodomesticos ]
+    labels = ['Alimentos' , 'Bazar' , 'Limpieza' , 'Electrodomesticos']
+    print(total_alimentos, total_bazar , total_limpieza , total_electrodomesticos)
+
+    fig = plt.figure()
+    fig.suptitle("Eejrcicio extra N° 4")
+
+    ax = fig.add_subplot()
+    ax.pie(totales   , labels=labels , startangle = 90 , autopct='%1.1f%%')
+    ax.axis('equal')
+    plt.show()
 
 
 def ej5():
@@ -183,12 +251,67 @@ def ej5():
     realicen uno solo y agrupen la información utilizando gráfico de barras
     apilados o agrupados (a su elección)
     '''
+    data = np.genfromtxt('ventas.csv', delimiter=',')
+    data = data[1:,:]
+    
+    filas_mes_1 = data[:, 0] == 1
+    mes_1 = data[filas_mes_1, :]
+
+    filas_mes_2 = data[:,0] == 2
+    mes_2 = data[filas_mes_2 , :]
+
+    filas_mes_3 = data[:,0] == 3
+    mes_3 =data[filas_mes_3 , :]
+
+    
+    
+    alimentos_mes_1 = np.sum(mes_1[:,2])
+    bazar_mes_1 = np.sum(mes_1[:,3])
+    limpieza_mes_1 = np.sum(mes_1[:,4])
+    electro_mes_1 = np.sum(mes_1[:,5])
+
+    
+    alimentos_mes_2 = np.sum(mes_2[:,2])
+    bazar_mes_2 = np.sum(mes_2[:,3])
+    limpieza_mes_2 = np.sum(mes_2[:,4])
+    electro_mes_2 = np.sum(mes_2[:,5])
+
+    
+    alimentos_mes_3 = np.sum(mes_3[:,2])
+    bazar_mes_3 = np.sum(mes_3[:,3])
+    limpieza_mes_3 = np.sum(mes_3[:,4])
+    electro_mes_3 = np.sum(mes_3[:,5])
+
+    print(bazar_mes_1)
+
+    fig = plt.figure()
+    fig.suptitle("Ejercicio extra N° 5" , fontsize= 22)
+
+    ax = fig.add_subplot()
+    ax.bar("Enero", alimentos_mes_1, label="alimentos" , color="yellow" )
+    ax.bar("Enero", bazar_mes_1 , bottom=alimentos_mes_1, label="bazar", color='blue')
+    ax.bar("Enero", limpieza_mes_1 , bottom=bazar_mes_1, label="limpieza" , color="red")
+    ax.bar("Enero", electro_mes_1 , bottom=limpieza_mes_1, label="electro" , color="lightblue")
+
+    ax.bar("Febrero", alimentos_mes_2 , color="yellow")
+    ax.bar("Febrero", bazar_mes_2 , bottom=alimentos_mes_2, color="blue" )
+    ax.bar("Febrero", limpieza_mes_2 , bottom=bazar_mes_2,  color='red')
+    ax.bar("Febrero", electro_mes_2 , bottom=limpieza_mes_2 ,  color="lightblue")
+
+    ax.bar("Marzo", alimentos_mes_3, color="yellow")
+    ax.bar("Marzo", bazar_mes_3 , bottom=alimentos_mes_3 , color="blue")
+    ax.bar("Marzo", limpieza_mes_3 , bottom=bazar_mes_3 ,  color='red')
+    ax.bar("Marzo", electro_mes_3 , bottom=limpieza_mes_3 ,  color="lightblue")
+
+    ax.legend()
+    plt.show()
+
 
 
 if __name__ == '__main__':
     print("Ejercicios de práctica")
-    ej1()
-    # ej2()
-    # ej3()
-    # ej4()
-    # ej5()
+    #ej1()
+    #ej2()
+    #ej3()
+    #ej4()
+    ej5()

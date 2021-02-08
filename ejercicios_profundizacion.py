@@ -13,7 +13,7 @@ adquiridos durante la clase
 
 __author__ = "Inove Coding School"
 __email__ = "alumnos@inove.com.ar"
-__version__ = "1.1"
+__version__ = "1.2"
 
 import math
 import numpy as np
@@ -36,6 +36,9 @@ def ej1():
     # y3 = x^4 (X a la cuarta)
     # Utilizar comprension de listas para generar
     # y1, y2 e y3 basado en los valores de x
+    y1 = [i**2 for i in x]
+    y2 = [i**3 for i in x]
+    y3 = [i**4 for i in x]
 
     # Esos tres gráficos deben estar colocados
     # en la diposición de 3 filas y 1 columna:
@@ -48,6 +51,25 @@ def ej1():
     # ------
     # Utilizar add_subplot para lograr este efecto
     # de "3 filas" "1 columna" de gráficos
+
+    fig = plt.figure()
+    fig.suptitle("1° Ejercicio Profundización")
+
+    ax1 = fig.add_subplot(3,1,1)
+    ax1.plot(x,y1, color='red', label = "X**2")
+    ax1.legend()
+    ax1.set_facecolor("blue")
+
+    ax2= fig.add_subplot(3,1,2)
+    ax2.plot(x,y2,color='red',label = "X**3")
+    ax2.legend()
+    ax2.set_facecolor('whitesmoke')
+    #ax2.set_xticklabels(" Probando")
+
+    ax3 = fig.add_subplot(3,1,3)
+    ax3.plot(x,y3,color='green',label= "X**4")
+    ax3.legend()
+    plt.show()
 
     # Se debe colocar en la leyenda la función que representa
     # cada gráfico
@@ -68,7 +90,36 @@ def ej2():
     # y2 = cos(x)
     # Utilizar los métodos de Numpy para calcular
     # "y1" y "y2" basado en los valores de x
+    y1 =  [i for i in np.sin(x)]
+    y2 = [i for i in np.cos(x)]
+    
+    fig = plt.figure()
+    fig.suptitle("GRAPHIC DESIGN IS MY PASSION", color='white' , fontsize=22)
+    fig.set_facecolor("brown")
+    
+    ax1 = fig.add_subplot(1,2,1)
+    ax1.scatter(x,y1,color='blue', label='y1=Sen(X)')
+    ax1.legend()
+    ax1.set_facecolor('grey')
+    ax1.grid(ls='dashed')
+    ax1.set_title("Función Seno")
+    ax1.set_xlabel('Valores de X')
+    ax1.set_ylabel('Valores de Y')
+    
 
+    ax2 = fig.add_subplot(1,2,2)
+    ax2.scatter(x , y2 , color='lightblue' , label='y2=Cos(X)' )
+    ax2.legend()
+    ax2.set_facecolor('whitesmoke')
+    ax2.grid(ls='dotted')
+    ax2.set_title("Función Coseno")
+    ax2.set_xlabel("Valores de X")
+    ax2.set_ylabel("Valores de Y")
+
+    plt.show()
+
+
+    
     # Esos dos gráficos deben estar colocados
     # en la diposición de 1 fila y 2 columnas:
     # ------
@@ -98,6 +149,18 @@ def ej3():
 
     # Se debe colocar título al gráfico.
     # Se debe cambiar la grilla y el fondo a su elección.
+    
+    fig = plt.figure() 
+
+    fig.suptitle("Ejercicio 5", fontsize=25)
+    
+    ax = fig.add_subplot()
+    ax.set_facecolor("turquoise")
+    ax.bar(lenguajes, performance, width=0.5, color='white')
+    ax.grid(ls='dotted',ms=100)
+
+        
+    plt.show()
 
 
 def ej4():
@@ -116,6 +179,11 @@ def ej4():
     # Se desea mostrar en el gráfico los porcentajes de c/u
     # Se debe colocar un título al gráfico
 
+    fig = plt.figure()
+    fig.suptitle("Ejercicio 4")
+
+    ax = fig.add_subplot()
+    ax.pie()
 
 def ej5():
     # Uso de múltiples líneas en un mismo gráfico (axes)
@@ -157,8 +225,8 @@ def ej5():
 
 if __name__ == '__main__':
     print("Bienvenidos a otra clase de Inove con Python")
-    ej1()
-    # ej2()
-    # ej3()
-    # ej4()
+    #ej1()
+    #ej2()
+    #ej3()
+    ej4()
     # ej5()
